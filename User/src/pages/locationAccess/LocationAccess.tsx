@@ -1,0 +1,67 @@
+import React, { Component } from 'react'
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import Ionicons from '@react-native-vector-icons/ionicons';
+import { ScrollView } from 'react-native-gesture-handler';
+
+export default class LocationAccess extends Component {
+    render({ navigation } = this.props) {
+        return (
+            <ScrollView>
+                <View style={styles.bg}>
+                    <View style={styles.container}>
+                        <Image style={styles.image} source={{
+                            uri: 'https://img.freepik.com/free-vector/directions-concept-illustration_114360-1741.jpg?ga=GA1.1.265960106.1740721772&semt=ais_hybrid'
+                        }} />
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Login')}>
+                            <Text style={styles.button}>
+                                Access LOCATION
+                                {/* <Ionicons name="map" color="#ff0000" size={20} /> */}
+
+                            </Text>
+                        </TouchableOpacity>
+                        <Text style={styles.text}> DFOOD WILL ACCESS YOUR LOCATION ONLY WHILE USING THE APP </Text>
+                    </View>
+                </View>
+            </ScrollView>
+        )
+    }
+}
+
+const styles = StyleSheet.create({
+    bg: { backgroundColor: "#ffffff",
+     },
+    container: {
+        flex: 1,
+        justifyContent: 'center',  // Centers content vertically
+        alignItems: 'center',  // Centers content horizontally
+         // White background for the entire screen
+        padding: 20,  // Optional, for spacing around the content
+    },
+    image: {
+        height: 240,
+        width: 240,
+        marginBottom: 30,
+        marginTop:100
+    },
+    buttonContainer: {
+        width: '100%',
+        marginTop: 30,
+    },
+    button: {
+        fontSize: 15,
+        fontWeight: "600",
+        backgroundColor: '#FF7622',
+        color: "#ffffff",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        borderRadius: 20,
+        textAlign: "center",
+    },
+    text: {
+        textAlign: "center",
+        fontWeight: "600",
+        marginTop: 30,
+        color: "#646982",
+        marginBottom:200
+    }
+})

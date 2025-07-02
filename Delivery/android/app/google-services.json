@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "318371797194",
+    "project_id": "minta-delivery",
+    "storage_bucket": "minta-delivery.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318371797194:android:35eb07946a8c66b239bc33",
+        "android_client_info": {
+          "package_name": "com.delivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv_elEmS5A5X6UOXAb4Z6A-mhDMeZ_WTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
