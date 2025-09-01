@@ -64,7 +64,7 @@ export default function Otp({ navigation }) {
                     style={[IndexStyle.mt]}
                     icon="check-decagram"
                     mode="contained"
-                    onPress={() => { login(); navigation.replace('Vehicle'); }}
+                    onPress={() => { login(); navigation.replace('Aadhaar'); }}
                 >
                     Verify OTP
                 </Button>

@@ -1,0 +1,186 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+interface Meal {
+  name: string;
+  pieces: string;
+  price: number;
+  originalPrice: number;
+  discount: string;
+  tag: string;
+  image: any;
+}
+
+interface Props {
+  mealsInMinutes: Meal[];
+  cartItemCount: number;
+  setCartItemCount: (count: number) => void;
+}
+
+const MealsInMinutes: React.FC<Props> = ({
+  mealsInMinutes,
+  cartItemCount,
+  setCartItemCount,
+}) => {
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionTitle}>Meals in Minutes</Text>
+      <Text style={styles.sectionSubtitle}>Juicy bites, Ready in no time!</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {mealsInMinutes.map((meal, index) => (
+          <View key={index} style={styles.productCard}>
+            <Image source={meal.image} style={styles.productImage} />
+            <View style={styles.mealTag}>
+              <Text style={styles.mealTagText}>{meal.tag}</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => setCartItemCount(cartItemCount + 1)}>
+              <MaterialIcons name="add" size={20} color="#FF7622" />
+            </TouchableOpacity>
+            <Text style={styles.productName}>{meal.name}</Text>
+            <Text style={styles.productDetails}>{meal.pieces}</Text>
+            <View style={styles.priceRow}>
+              <Text style={styles.productPrice}>₹{meal.price}</Text>
+              <Text style={styles.productOriginalPrice}>
+                ₹{meal.originalPrice}
+              </Text>
+              <Text style={styles.productDiscount}>{meal.discount}</Text>
+            </View>
+            <View style={styles.deliveryInfo}>
+              <MaterialCommunityIcons
+                name="lightning-bolt"
+                size={14}
+                color="#ff6b35"
+              />
+              <Text style={styles.deliveryInfoText}>Delivery in 30 mins</Text>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  section: {
+    paddingHorizontal: 16,
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 4,
+  },
+  sectionSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 16,
+  },
+  productCard: {
+    width: 200,
+    marginRight: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    position: 'relative',
+  },
+  productImage: {
+    width: '100%',
+    height: 120,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  mealTag: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    backgroundColor: '#fff',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 12,
+  },
+  mealTagText: {
+    fontSize: 10,
+    color: '#666',
+  },
+  addButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: '#fff',
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  productName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 8,
+    marginHorizontal: 12,
+  },
+  productDetails: {
+    fontSize: 12,
+    color: '#666',
+    margin: 12,
+    marginTop: 4,
+  },
+  priceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 12,
+    marginBottom: 8,
+  },
+  productPrice: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginRight: 8,
+  },
+  productOriginalPrice: {
+    fontSize: 12,
+    color: '#999',
+    textDecorationLine: 'line-through',
+    marginRight: 8,
+  },
+  productDiscount: {
+    fontSize: 12,
+    color: '#4caf50',
+    fontWeight: 'bold',
+  },
+  deliveryInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 12,
+    marginBottom: 12,
+  },
+  deliveryInfoText: {
+    fontSize: 12,
+    color: '#ff6b35',
+    marginLeft: 4,
+  },
+});
+
+export default MealsInMinutes;

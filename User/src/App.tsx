@@ -24,6 +24,12 @@ import PrivacyPolicy from './pages/privacyPolicy/PrivacyPolicy';
 import Cart from './pages/cart/Cart';
 import Orders from './pages/orders/Order';
 import ProfileMenu from './pages/ProfileMenue/ProfileMenu';
+import Splash from './pages/splash/Splash';
+import MyTabs from './pages/bottomTab/BootamTab';
+import OrderDetailsScreen from './pages/orderDetails/OrderDetails';
+import CheckoutScreen from './pages/checkout/Checkout';
+import AddressScreen from './pages/address/Address';
+import Toast from 'react-native-toast-message';
 
 function App() {
   const Stack = createStackNavigator();
@@ -33,8 +39,10 @@ function App() {
     // <Details />
     <AuthProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          {/* <Stack.Screen name='Profile_menu' component={ProfileMenu} /> */}
+        <Stack.Navigator
+          initialRouteName="Splash"
+          screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Onboarding_01" component={Onboarding_01} />
           <Stack.Screen name="Onboarding_02" component={Onboarding_02} />
           <Stack.Screen name="Onboarding_03" component={Onboarding_03} />
@@ -45,8 +53,9 @@ function App() {
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Verification" component={Verification} />
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Mytab" component={MyTabs} />
           <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="Profile_menu" component={ProfileMenu} />
           <Stack.Screen
             name="Details"
             component={Details}
@@ -72,17 +81,29 @@ function App() {
             component={Orders}
             options={{headerShown: true, headerTitle: 'My Orders'}}
           />
-          <Stack.Screen
-            name="Cart"
-            component={Cart}
-            options={{headerShown: true, headerTitle: 'My Cart'}}
-          />
+          <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen
             name="Privacy Policy"
             component={PrivacyPolicy}
             options={{headerShown: true, headerTitle: 'Term and Conditions'}}
           />
+          <Stack.Screen
+            name="OrderDetails"
+            component={OrderDetailsScreen}
+            options={{headerShown: true, headerTitle: 'Order Details'}}
+          />
+          <Stack.Screen
+            name="Checkout"
+            component={CheckoutScreen}
+            options={{headerShown: true, headerTitle: 'Check out'}}
+          />
+          <Stack.Screen
+            name="Address"
+            component={AddressScreen}
+            options={{headerShown: true, headerTitle: 'Saved Address'}}
+          />
         </Stack.Navigator>
+          <Toast position="top"  swipeable={true}/>
       </NavigationContainer>
     </AuthProvider>
   );

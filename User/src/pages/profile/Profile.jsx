@@ -14,9 +14,6 @@ const Profile = () => {
           <Text style={{ color: "grey" }}>@sushil</Text>
         </View>
       </View>
-
-
-
     </View>
   )
 }

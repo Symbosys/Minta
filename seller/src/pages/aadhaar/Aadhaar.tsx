@@ -4,7 +4,7 @@ import IndexStyle from '../../Index.Style'
 import { Button, Text, TextInput } from 'react-native-paper'
 import { useAuth } from '../../app/AuthContext'
 
-export default function Aadhaar({ navigation }) {
+export default function Aadhaar({ navigation }: any) {
     const { login } = useAuth();
 
     return (

@@ -21,6 +21,7 @@ import Vehicle from './pages/vehicle/Vehicle';
 import Wallet from './pages/wallet/Wallet';
 import RestaurantDashboard from './pages/dashboard/DashBoard';
 import RunningOrdersModal from './components/OrderStatus/Status';
+import Fassai from './pages/fassai/Fassai';
 
 const Stack = createStackNavigator();
 
@@ -79,6 +80,7 @@ const Rout = () => {
           <Stack.Screen name="Vehicle" component={Vehicle} options={{ headerShown: true }} />
           <Stack.Screen name="Aadhaar" component={Aadhaar} options={{ headerShown: true }} />
           <Stack.Screen name="Pancard" component={PanCard} options={{ headerShown: true }} />
+          <Stack.Screen name="Fassai" component={Fassai} options={{ headerShown: true }} />
           <Stack.Screen name="Personal" component={Personal} options={{ headerShown: true }} />
           <Stack.Screen name="BottomNav" component={BottomNav} options={{ headerShown: false }} />
 

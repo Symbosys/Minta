@@ -78,7 +78,7 @@ export default function PanCard({ navigation }) {
 
 
                 </View>
-                <Button style={[IndexStyle.mt]} icon="card-account-details" mode="contained" onPress={() => { login(); navigation.replace('Personal'); }}>
+                <Button style={[IndexStyle.mt]} icon="card-account-details" mode="contained" onPress={() => { login(); navigation.replace('Fassai'); }}>
                     Verify PAN
                 </Button>
             </View>
