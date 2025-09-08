@@ -46,12 +46,12 @@ export type Product = {
   id: string;
   name: string;
   description?: string | null;
-  priceBeforeDiscount: number; // Prisma Decimal → cast to number
+  priceBeforeDiscount: number; 
   priceAfterDiscount: number;
   categoryId: string;
   subCategoryId: string;
   weight: number;
-  pieces: string; // "3 - 4" style range
+  pieces: string; 
   discount: number;
   priceToVendor: number;
   isActive: boolean;
@@ -71,8 +71,6 @@ export type ProductImage = {
   productId: string;
   createdAt: Date;
   updatedAt: Date;
-
-  product?: Product;
 };
 
 // -------------------- CART --------------------
@@ -83,9 +81,6 @@ export type Cart = {
   quantity: number;
   createdAt: Date;
   updatedAt: Date;
-
-  user?: User;
-  product?: Product;
 };
 
 // -------------------- USER (not in your schema, but required for Cart) --------------------

@@ -3,29 +3,70 @@ import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Product} from '../../types/types';
+import { useCartStore } from '../../store/cart';
 
-type Props = {
-  item: Product;
-};
+const ProductCard = ({item}: {item: Product}) => {
+  const {cart, addToCart, updateQuantity, removeFromCart} = useCartStore();
 
-const ProductCard = ({item}: Props) => {
+  // Find if product already in cart
+  const cartItem = cart.find(i => i.product.id === item.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
+
+  const increaseQty = () => {
+    if (cartItem) {
+      updateQuantity(item.id, cartItem.quantity + 1);
+    } else {
+      addToCart(item);
+    }
+  };
+
+  const decreaseQty = () => {
+    if (!cartItem) return;
+    if (cartItem.quantity > 1) {
+      updateQuantity(item.id, cartItem.quantity - 1);
+    } else {
+      removeFromCart(item.id);
+    }
+  };
+
   return (
     <View style={styles.productCard}>
       <Image
-        source={{uri: item?.image[0]?.image.secure_url}}
+        source={{
+          uri:
+            item?.image[0]?.image.secure_url ??
+            'https://images.unsplash.com/photo-1642102903996-cdad15f5dcdd?w=500&auto=format&fit=crop&q=60',
+        }}
         style={styles.productImage}
       />
+
       <View style={styles.productBadge}>
         <MaterialCommunityIcons name="shield-check" size={16} color="#4caf50" />
         <Text style={styles.badgeText}>INDIA'S #1 CHOICE</Text>
       </View>
-      <TouchableOpacity style={styles.addButton}>
-        <MaterialIcons name="add" size={20} color="#FF7622" />
-      </TouchableOpacity>
+
+      {/* Quantity Button */}
+      {quantity === 0 ? (
+        <TouchableOpacity style={styles.addButton} onPress={increaseQty}>
+          <MaterialIcons name="add" size={20} color="#FF7622" />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.qtyContainer}>
+          <TouchableOpacity onPress={decreaseQty} style={styles.qtyBtn}>
+            <MaterialIcons name="remove" size={20} color="#FF7622" />
+          </TouchableOpacity>
+          <Text style={styles.qtyText}>{quantity}</Text>
+          <TouchableOpacity onPress={increaseQty} style={styles.qtyBtn}>
+            <MaterialIcons name="add" size={20} color="#FF7622" />
+          </TouchableOpacity>
+        </View>
+      )}
+
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={styles.productDetails}>
         {item.weight} g | {item.pieces} Pieces
       </Text>
+
       <View style={styles.priceRow}>
         <Text style={styles.productPrice}>₹{item.priceAfterDiscount}</Text>
         <Text style={styles.productOriginalPrice}>
@@ -33,6 +74,7 @@ const ProductCard = ({item}: Props) => {
         </Text>
         <Text style={styles.productDiscount}>{item.discount} % off</Text>
       </View>
+
       <View style={styles.deliveryInfo}>
         <MaterialCommunityIcons
           name="lightning-bolt"
@@ -96,6 +138,31 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 3,
+  },
+  qtyContainer: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  qtyBtn: {
+    padding: 4,
+  },
+  qtyText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+    marginHorizontal: 6,
   },
   productName: {
     fontSize: 14,

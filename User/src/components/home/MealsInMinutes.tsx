@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,11 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import api from '../../api/api';
+import { AxiosError } from 'axios';
+import Toast from 'react-native-toast-message';
+import { Product } from '../../types/types';
+import ProductCard from '../ui/ProductCard';
 
 interface Meal {
   name: string;
@@ -31,41 +36,50 @@ const MealsInMinutes: React.FC<Props> = ({
   cartItemCount,
   setCartItemCount,
 }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const fetchBestSellerProduct = async () => {
+    try {
+      const res = await api.get('/product/all');
+      setProducts(res.data.data.products);
+      console.log(res.data)
+    } catch (error) {
+      console.log('error', error);
+      if (error instanceof AxiosError) {
+        Toast.show({
+          type: 'error',
+          text1: error.response?.data.message || 'Something went wrong',
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Something went wrong',
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchBestSellerProduct();
+  }, []);
+
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Meals in Minutes</Text>
       <Text style={styles.sectionSubtitle}>Juicy bites, Ready in no time!</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {mealsInMinutes.map((meal, index) => (
-          <View key={index} style={styles.productCard}>
-            <Image source={meal.image} style={styles.productImage} />
-            <View style={styles.mealTag}>
-              <Text style={styles.mealTagText}>{meal.tag}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => setCartItemCount(cartItemCount + 1)}>
-              <MaterialIcons name="add" size={20} color="#FF7622" />
-            </TouchableOpacity>
-            <Text style={styles.productName}>{meal.name}</Text>
-            <Text style={styles.productDetails}>{meal.pieces}</Text>
-            <View style={styles.priceRow}>
-              <Text style={styles.productPrice}>₹{meal.price}</Text>
-              <Text style={styles.productOriginalPrice}>
-                ₹{meal.originalPrice}
-              </Text>
-              <Text style={styles.productDiscount}>{meal.discount}</Text>
-            </View>
-            <View style={styles.deliveryInfo}>
-              <MaterialCommunityIcons
-                name="lightning-bolt"
-                size={14}
-                color="#ff6b35"
+        {
+          products && products.length > 0 ? (
+            products.map((product) => (
+              <ProductCard
+                key={product.id}
+                item={product}
               />
-              <Text style={styles.deliveryInfoText}>Delivery in 30 mins</Text>
-            </View>
-          </View>
-        ))}
+            ))
+          ) : (
+            <Text>Loading...</Text>
+          )
+        }
       </ScrollView>
     </View>
   );

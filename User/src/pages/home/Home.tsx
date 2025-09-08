@@ -1,25 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  View,
-  ScrollView,
-  StyleSheet,
-  StatusBar,
   Dimensions,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
 } from 'react-native';
-import Header from '../../components/home/Header';
 import Address from '../../components/home/Address';
+import Bestsellers from '../../components/home/Bestsellers';
+import BottomNav from '../../components/home/BottomNav';
+import CartSummary from '../../components/home/CartSummary';
+import Header from '../../components/home/Header';
+import MealsInMinutes from '../../components/home/MealsInMinutes';
+import PremiumFish from '../../components/home/PremiumFish';
+import ShopByCategory from '../../components/home/ShopByCategory';
+import TheMintaWay from '../../components/home/TheMintaWay';
 import WelcomeBanner from '../../components/home/WelcomeBanner';
 import WelcomeRewards from '../../components/home/WelcomeRewards';
-import Bestsellers from '../../components/home/Bestsellers';
-import ShopByCategory from '../../components/home/ShopByCategory';
-import Coupons from '../../components/home/Coupons';
-import PremiumFish from '../../components/home/PremiumFish';
-import ShopByStore from '../../components/home/ShopByStore';
-import MealsInMinutes from '../../components/home/MealsInMinutes';
-import TheMintaWay from '../../components/home/TheMintaWay';
-import CartBar from '../../components/home/CartBar';
-import CartSummary from '../../components/home/CartSummary';
-import BottomNav from '../../components/home/BottomNav';
 
 const {width} = Dimensions.get('window');
 
@@ -97,7 +94,7 @@ const Home: React.FC = ({navigation}: any) => {
           cartItemCount={cartItemCount}
           setCartItemCount={setCartItemCount}
         />
-        <ShopByStore storeCategories={storeCategories} />
+        {/* <ShopByStore storeCategories={storeCategories} /> */}
         <MealsInMinutes
           mealsInMinutes={mealsInMinutes}
           cartItemCount={cartItemCount}
@@ -106,8 +103,7 @@ const Home: React.FC = ({navigation}: any) => {
         <TheMintaWay />
         <View style={styles.bottomSpacing} />
       </ScrollView>
-      <CartBar />
-      <CartSummary navigation={navigation} cartItemCount={cartItemCount} />
+      <CartSummary navigation={navigation} />
       <BottomNav />
     </View>
   );

@@ -9,6 +9,7 @@ import { useAuth } from '../../../app/AuthContext';
 import { RootStackParamList } from '../../../types/types';
 import Ellipse from './../../../assets/vectors/backgrounds/Ellipse.png';
 import Vector from './../../../assets/vectors/backgrounds/Vector.png';
+import api from '../../../api/api';
 
 
 const Login = ({
@@ -33,10 +34,7 @@ const Login = ({
   const handleLogin = async () => {
     setLoading(true)
     try {
-        const res = await axios.post(
-          'http://192.168.1.8:4000/api/v1/auth/request-otp',
-          {mobile},
-        );
+        const res = await api.post("/auth/request-otp", {mobile});
         console.log(res.data);
         if (res.data.success) {
             Toast.show({

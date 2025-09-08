@@ -20,7 +20,6 @@ const ShopByCategory = () => {
   const fetchCategory = async () => {
     try {
       const res = await api.get('/category/all');
-      console.log(res.data.data);
       setCategory(res.data.data);
     } catch (error) {
       if(error instanceof AxiosError){

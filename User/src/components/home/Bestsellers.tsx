@@ -6,6 +6,7 @@ import Toast from 'react-native-toast-message';
 import ProductCard from '../ui/ProductCard';
 import {AxiosError} from 'axios';
 
+
 const Bestsellers = () => {
   const [bestsellers, setBestsellers] = useState<Product[]>([]);
 

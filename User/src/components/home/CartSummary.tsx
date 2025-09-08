@@ -1,36 +1,57 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useCartStore} from '../../store/cart';
 
 interface Props {
   navigation: any;
-  cartItemCount: number;
 }
 
-const CartSummary: React.FC<Props> = ({navigation, cartItemCount}) => {
+const CartSummary: React.FC<Props> = ({navigation}) => {
+  const cartItemCount = useCartStore(state => state.cartItemCount());
+  const cartSubtotal = useCartStore(state => state.cartSubtotal());
+
   return (
-    <View style={styles.cartSummary}>
-      <View style={styles.cartLeft}>
-        <Text style={styles.cartItemCount}>{cartItemCount} Item</Text>
-        <Text style={styles.cartSeparator}>|</Text>
-        <Text style={styles.cartTotal}>₹160</Text>
+    <View style={styles.container}>
+      <View style={styles.cartBar}>
+        <Text style={styles.cartNotification}>
+          Shop for ₹39 more to save ₹50 | 20FLAT
+        </Text>
       </View>
-      <TouchableOpacity
-        style={styles.viewCartButton}
-        onPress={() => navigation.navigate('Cart')}>
-        <Text style={styles.viewCartText}>View Cart</Text>
-        <MaterialIcons name="arrow-forward" size={16} color="#fff" />
-      </TouchableOpacity>
+      <View style={styles.cartSummary}>
+        <View style={styles.cartLeft}>
+          <Text style={styles.cartItemCount}>{cartItemCount} Item</Text>
+          <Text style={styles.cartSeparator}>|</Text>
+          <Text style={styles.cartTotal}>₹{cartSubtotal}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.viewCartButton}
+          onPress={() => navigation.navigate('Cart')}>
+          <Text style={styles.viewCartText}>View Cart</Text>
+          <MaterialIcons name="arrow-forward" size={16} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#333',
+  },
+  cartBar: {
+    backgroundColor: '#ffca28',
+    padding: 8,
+    alignItems: 'center',
+  },
+  cartNotification: {
+    fontSize: 12,
+    color: '#333',
+  },
   cartSummary: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#333',
     padding: 12,
   },
   cartLeft: {
